@@ -1,8 +1,10 @@
 (function($){
     function processForm( e ){
         var dict = {
-        	Title : this["title"].value,
-        	Director: this["director"].value
+            Title : this["title"].value,
+            Genre: this["genre"].value,
+            Director: this["director"].value,
+        	ImagePath: this["imagePath"].value
         };
 
         $.ajax({
@@ -22,5 +24,24 @@
         e.preventDefault();
     }
 
-    $('#my-form').submit( processForm );
+    $('#my-form').submit(processForm);
+
+    function GetAllMovies() {
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44325/api/movie',
+                dataType: 'json',
+                success: function () {
+                    $('.movieData').append
+
+                }
+
+
+            })
+        }
+        
+        )}
+
 })(jQuery);
+

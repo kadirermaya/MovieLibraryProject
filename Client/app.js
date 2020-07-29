@@ -26,22 +26,56 @@
 
     $('#my-form').submit(processForm);
 
-    function GetAllMovies() {
-        $(document).ready(function () {
+    function GetAllMovies(){
+        $(document).ready(function() {
             $.ajax({
                 type: 'GET',
-                url: 'https://localhost:44325/api/movie',
+                url: "https://localhost:44325/api/movie",
                 dataType: 'json',
-                success: function () {
-                    $('.movieData').append
-
+                success: function(){
+                    $('.movieData').html('');
                 }
-
-
             })
+                .then(function(data) {
+                    $.each(data, function(index, value){
+                        $('.movieData').append(
+                        "<tr>" +
+                            "<td>" + value.title + "<td>" +
+                            "<td>" + value.genre + "<td>" +
+                            "<td>" + value.director + "<td>" +
+                            "<td>" + value.imagePath + "<td>" +
+                        "<tr>"
+                        );
+                    });
+            });
+    
+        });
+    }
+
+
+    function AddMovie(){
+        var data = getMovieObject();
+        $(document).ready(function() {
+            $.ajax({
+                type: 'POST',
+                url: "https://localhost:44325/api/movie",
+                dataType: 'json',
+                data : data
+            }).then(function(){
+                GetAllMovies();
+            });
+        });
+    }
+
+    function getMovieObject(){
+        var data = {
+            "Title": document.getElementById('title').value,
+            "Genre": document.getElementById('genre').value,
+            "Director": document.getElementById('director').value,
+            "Image": document.getElementById('imagePost').value,
         }
-        
-        )}
+        return data;
+    }
 
+$(document).ready(GetAllMovies);
 })(jQuery);
-

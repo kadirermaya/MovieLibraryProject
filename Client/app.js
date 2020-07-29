@@ -52,30 +52,57 @@
         });
     }
 
+    function UpdateMovie( movieId ){
+        var movie = {
+            MovieId: this["movieId"].value,
+            Title : this["title"].value,
+            Genre: this["genre"].value,
+            Director: this["director"].value,
+        	ImagePath: this["imagePath"].value
+        };
 
-    function AddMovie(){
-        var data = getMovieObject();
-        $(document).ready(function() {
-            $.ajax({
-                type: 'POST',
-                url: "https://localhost:44325/api/movie",
-                dataType: 'json',
-                data : data
-            }).then(function(){
-                GetAllMovies();
-            });
+        $.ajax({
+            url: 'https://localhost:44325/api/movie/' + movieId,
+            dataType: 'json',
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(dict),
+            success: function( data, textStatus, jQxhr ){
+                $('#response pre').html( data );
+            },
+            error: function( jqXhr, textStatus, errorThrown ){
+                console.log( errorThrown );
+            }
         });
+
+        e.preventDefault();
     }
 
-    function getMovieObject(){
-        var data = {
-            "Title": document.getElementById('title').value,
-            "Genre": document.getElementById('genre').value,
-            "Director": document.getElementById('director').value,
-            "Image": document.getElementById('imagePost').value,
-        }
-        return data;
-    }
+    
+}
+    // function AddMovie(){
+    //     var data = getMovieObject();
+    //     $(document).ready(function() {
+    //         $.ajax({
+    //             type: 'POST',
+    //             url: "https://localhost:44325/api/movie",
+    //             dataType: 'json',
+    //             data : data
+    //         }).then(function(){
+    //             GetAllMovies();
+    //         });
+    //     });
+    // }
+
+    // function getMovieObject(){
+    //     var data = {
+    //         "Title": document.getElementById('title').value,
+    //         "Genre": document.getElementById('genre').value,
+    //         "Director": document.getElementById('director').value,
+    //         "Image": document.getElementById('imagePost').value,
+    //     }
+    //     return data;
+    // }
 
 $(document).ready(GetAllMovies);
 })(jQuery);

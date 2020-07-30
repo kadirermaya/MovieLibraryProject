@@ -7,34 +7,47 @@
 </head>
 <body>
 
-<div id="response">
-    <pre></pre>
-</div>
+    <div>
+        <form id="addForm">
+            <input type="text" name="title" placeholder="Title" />
+            <input type="text" name="genre" placeholder="Genre" />
+            <input type="text" name="director" placeholder="Director" />
+            <input type="text" name="imagePath" placeholder="Image URL Here" />
 
-<form id="addForm">
-    <input type="text" name="title" placeholder="Title" />
-    <input type="text" name="genre" placeholder="Genre" />
-    <input type="text" name="director" placeholder="Director" />
-    <input type="text" name="imagePath" placeholder="Image" />
+            <button type="submit">Add Movie</button>
+        </form>
+    </div>
+    
+    <div id="search">
+        <form id="searchForm">
+            <label>Search by</label>
+            <select name="" id="">
+                <option>Title</option>
+                <option>Genre</option>
+                <option>Director</option>
+            </select>
+        <input type="text" placeholder="Search"/>
+        <button type="button" onclick="">Search</button>
+        </form>
 
-    <button type="submit">Add Movie</button>
-</form>
+    </div>
+    
+    
+    <div class="iterate">
+        <table class="myTable">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Genre</th>
+                    <th>Director</th>
+                    <!-- <th>Image</th> -->
+                </tr>
+            </thead>
+            <tbody class="movieData">
 
-<div class="iterate">
-    <table class="myTable">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Genre</th>
-                <th>Director</th>
-                <th>Image</th>
-            </tr>
-        </thead>
-        <tbody class="movieData">
-
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
 <div id="updateForm" style="display: none" >
     <form id="update-form">
@@ -42,10 +55,22 @@
         <input type="text" id="title" name="title" placeholder="Title" />
         <input type="text" id="genre"  name="genre" placeholder="Genre" />
         <input type="text" id="director" name="director" placeholder="Director" />
-        <input type="text" id="imagePath"name="imagePath" placeholder="Image" />
+        <input type="text" id="imagePath"name="imagePath" placeholder="Image URL Here" />
     
         <button type="submit">Submit</button>
     </form>
+</div>
+
+<div id="view-movie-info" style="display: none">
+    <div>
+        <h2 id="movie-name"></h2>
+        <h4 id="movie-genre"></h4>
+        <h4 id="movie-director"></h4>
+        <img id="movie-picture">
+    </div>
+
+
+
 </div>
 
 

@@ -1,18 +1,22 @@
 (function($){
-
-    
-
+    movies = []
+    selectedMovieId = -1;
     function UpdateMovie(e){
-       
        // get request first
-       // 
-        var movie = {
-            MovieId : parseInt(this["movieId"].value),
+    //    const selectedMovie = movies.find(movie => {movie.movieId === selectedMovieId})
+    //    selectedMovie.title = this["title"].value
+    //    selectedMovie.genre = this["genre"].value
+    //    selectedMovie.director = this["director"].value
+    //    selectedMovie.imagePath = this["imagePath"].value
+
+       var movie = {
+            MovieId : selectedMovieId,
             Title : this["title"].value,
             Genre: this["genre"].value,
             Director: this["director"].value,
             ImagePath: this["imagePath"].value
         };
+        
         $.ajax({
             url: `https://localhost:44325/api/movie`,
             dataType: 'json',
@@ -21,24 +25,14 @@
             data: JSON.stringify(movie),
             success: function( data, textStatus, jQxhr ){
                 $('#response pre').html( data );
-                $('#')
             },
             error: function( jqXhr, textStatus, errorThrown ){
                 console.log( errorThrown );
             }
-        });
-        // .then(function(data) {
-        //     $.each(data, function(index, value){
-        //         $('.update-form').append(
-        //             '<input type="text" name="title" placeholder="' + value.title +'"/>'+
-        //             '<input type="text" name="genre" placeholder="' + value.genre +'"/>'+
-        //             '<input type="text" name="director" placeholder="' + value.director +'"/>'+
-        //             '<input type="text" name="imagePath" placeholder="' + value.imagePath +'"/>'
-        //         );
-        //     });
-        // });
-
-
+        }).then(function() {
+            GetAllMovies();
+        })
+        
         e.preventDefault();
     }
 
@@ -82,6 +76,7 @@
                 }
             })
                 .then(function (data) {
+                    movies = data
                     $.each(data, function (index, value) {
                         $('.movieData').append(
                             '<tr>' +
@@ -89,16 +84,25 @@
                             '<td>' + value.genre + '</td>' +
                             '<td>' + value.director + '</td>' +
                             '<td>' + value.imagePath + '</td>' +
-                            '<td><button type="button" value="Update" onclick="Unhide()">Update</button></td>' +
-                            '</tr>'
+                            `<td><button type="button" value="Update" onclick="Unhide(${value.movieId}, '${value.title}', '${value.genre}', '${value.director}', '${value.imagePath}')">Update</button></td>` +
+                            '</tr>' 
                         );
+                        
+
                     });
                 });
 
         });
     }
     
-    
+    // function UpdateMovieForm(data) {
+
+    //     document.getElementById('movieId').placeholder = value.movieId;
+    //     document.getElementById('title').placeholder = Title;
+    //     document.getElementById('genre').placeholder = Director;
+    //     document.getElementById('imagePath').placeholder = ImagePath;
+    // }
+
     
 
     
@@ -130,14 +134,20 @@
 $(document).ready(GetAllMovies());
 })(jQuery);
 
-function Unhide(){
+function Unhide(movieId,title,genre,director,imagePath){
+    this.selectedMovieId = movieId;
+    
     var x = document.getElementById("updateForm");
     if (x.style.display === "none") {
       x.style.display = "block";
+    //   document.getElementById('movieId').placeholder = movieId;
+      document.getElementById('title').value = title;
+      document.getElementById('genre').value = genre;
+      document.getElementById('director').value = director;
+      document.getElementById('imagePath').value = imagePath;
     } else {
       x.style.display = "none";
     }
-    UpdateMovie(movie.MovieId)
 }
 
 

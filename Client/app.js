@@ -72,13 +72,9 @@
                     `<td><button type="button" value="Update" onclick="UnhideUpdate(${value.movieId}, '${value.title}', '${value.genre}', '${value.director}', '${value.imagePath}')">Update</button></td>` +
                     '</tr>'
                 );
-
-
             });
             e.preventDefault();
         };
-
-
 
     $('#searchForm').submit(SearchForm);
 
@@ -174,4 +170,3 @@ function UnhideDetails(movieId, title, genre, director, imagePath) {
         details.style.display = "none";
     }
 }
-
